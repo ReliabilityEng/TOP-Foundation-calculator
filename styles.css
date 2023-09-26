@@ -1,6 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
+    background-color: RGB(25, 25, 25);
     justify-content: center;
     margin: 0;
 }
@@ -9,14 +10,15 @@ body {
     display: flex;
     flex: 0 1 300px;
     margin: 36px 0px;
-    border: solid black;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: RGB(20, 20, 20);
     flex-direction: column;
 }
 
-.buttons-container button {
-    border-radius: 100px;
-    flex: 0 1 50px;
-    font-size: larger;
+.display-container .display {
+    color: white;
+    font-size: 5vh;
 }
 
 .buttons-container {
@@ -26,7 +28,36 @@ body {
 
 .row1, .row2, .row3, .row4, .row5 {
     display: flex;
+    margin: 5px 0px;
     justify-content: space-around;
-    border: solid black;
-    flex: 1 1 50px;
+    flex: 1 1 60px;
 }
+
+
+
+.buttons-container button {
+    border-radius: 100px;
+    flex: 0 1 60px;
+    border: none;
+    font-size: 24px;
+}
+
+.buttons-container .numbers{
+    background-color: gray;
+    color: white;
+}
+
+.buttons-container .operation {
+    background-color: orange;
+    color: white;
+    font-size: 32px;
+}
+
+.buttons-container .function1 {
+    background-color: lightgrey;
+}
+
+.buttons-container .row5 #num0 {
+    flex: 0 1 135px;
+}
+
