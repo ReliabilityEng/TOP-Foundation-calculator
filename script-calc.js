@@ -1,21 +1,38 @@
-// Animation of GUI
-const buttons = document.querySelectorAll('button');
-buttons.forEach((btn) => {
-    
-    btn.addEventListener('mouseover', ()=>{
-        btn.classList.add('hover');
+// Functions
+function addMouseStyles(element) {
+    element.addEventListener('mouseover', ()=>{
+        element.classList.add('hover');
     });
 
-    btn.addEventListener('mouseout', ()=>{
-        btn.classList.remove('hover');
-        btn.classList.remove('pressed');
+    element.addEventListener('mouseout', ()=>{
+        element.classList.remove('hover');
+        element.classList.remove('pressed');
     })
 
-    btn.addEventListener('mousedown', ()=>{
+    element.addEventListener('mousedown', ()=>{
+        element.classList.add('pressed');
+    })
+
+    element.addEventListener('mouseup', ()=>{
+        element.classList.remove('pressed');
+    })
+}
+
+function addKeyboardStyles() {
+    window.addEventListener('keydown', (evt) => {
+        const btn = document.querySelector(`button[data-key="${evt.key}"]`);
         btn.classList.add('pressed');
-    })
-
-    btn.addEventListener('mouseup', ()=>{
+    });
+    
+    window.addEventListener('keyup', (evt) => {
+        const btn = document.querySelector(`button[data-key="${evt.key}"]`);
         btn.classList.remove('pressed');
-    })
-})
+    });
+}
+
+
+// Activating styles modification
+const buttons = document.querySelectorAll('button');
+buttons.forEach(btn => addMouseStyles(btn));
+addKeyboardStyles();
+
