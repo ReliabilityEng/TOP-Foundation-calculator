@@ -81,7 +81,8 @@ body {
     background-color: hsl(0, 0%, 55%); /*Light grey*/
 }
 
-.buttons-container .row5 #num0 {
+.buttons-container .row5 #num0,
+.buttons-container .row1 #clear {
     flex: 0 1 135px;
 }
 
