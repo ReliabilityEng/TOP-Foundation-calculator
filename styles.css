@@ -43,18 +43,42 @@ body {
 }
 
 .buttons-container .numbers{
-    background-color: gray;
+    background-color: hsl(0, 0%, 50%); /*Grey*/
     color: white;
 }
 
+.buttons-container .numbers.hover{
+    background-color: hsl(0, 0%, 30%); /*Grey*/
+}
+
+.buttons-container .numbers.pressed{
+    background-color: hsl(0, 0%, 20%); /*Grey*/
+}
+
 .buttons-container .operation {
-    background-color: orange;
+    background-color: hsl(39, 100%, 50%); /*Orange*/
     color: white;
     font-size: 32px;
 }
 
+.buttons-container .operation.hover{
+    background-color: hsl(39, 100%, 40%); /*Orange*/
+}
+
+.buttons-container .operation.pressed{
+    background-color: hsl(39, 100%, 30%); /*Orange*/
+}
+
 .buttons-container .function1 {
-    background-color: lightgrey;
+    background-color: hsl(0, 0%, 83%); /*Light grey*/
+}
+
+.buttons-container .function1.hover {
+    background-color: hsl(0, 0%, 70%); /*Light grey*/
+}
+
+.buttons-container .function1.pressed {
+    background-color: hsl(0, 0%, 55%); /*Light grey*/
 }
 
 .buttons-container .row5 #num0 {
