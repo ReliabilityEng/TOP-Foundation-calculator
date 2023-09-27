@@ -20,12 +20,18 @@ function addMouseStyles(element) {
 
 function addKeyboardStyles() {
     window.addEventListener('keydown', (evt) => {
-        const btn = document.querySelector(`button[data-key="${evt.key}"]`);
+        eventKey = evt.key
+        if(eventKey === "=") eventKey = 'Enter';
+        
+        const btn = document.querySelector(`button[data-key="${eventKey}"]`);
         btn.classList.add('pressed');
     });
     
     window.addEventListener('keyup', (evt) => {
-        const btn = document.querySelector(`button[data-key="${evt.key}"]`);
+        eventKey = evt.key
+        if(eventKey === "=") eventKey = 'Enter';
+        
+        const btn = document.querySelector(`button[data-key="${eventKey}"]`);
         btn.classList.remove('pressed');
     });
 }
