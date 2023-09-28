@@ -1,4 +1,4 @@
-// Functions
+// Style Functions
 function addMouseStyles(element) {
     element.addEventListener('mouseover', ()=>{
         element.classList.add('hover');
@@ -42,3 +42,34 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach(btn => addMouseStyles(btn));
 addKeyboardStyles();
 
+
+// Calculation function
+const display = document.querySelector('.display');
+console.log(display.textContent);
+
+let numA;
+let numB;
+let numC;
+
+buttons.forEach(btn => {
+    btn.addEventListener('click', ()=>{
+        let btnClass = btn.getAttribute('class');
+        if(btnClass.includes('numbers')){
+            if(display.textContent[0] == '0') {
+                (btn.getAttribute('data-key') == "." && !display.textContent.includes('.')) ? display.textContent += "." :  display.textContent += "";
+
+                btn.getAttribute('data-key') !== "." ? 
+                (display.textContent = "",
+                display.textContent += btn.getAttribute('data-key')): display.textContent += "";
+            } else {
+                (btn.getAttribute('data-key') == "." && !display.textContent.includes('.')) ? display.textContent += "." :  display.textContent += "";
+
+                btn.getAttribute('data-key') !== "." ? 
+                display.textContent += btn.getAttribute('data-key') : display.textContent += "";
+            }
+            
+            numA = parseFloat(display.textContent);
+        };
+
+    });
+});
