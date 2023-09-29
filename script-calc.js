@@ -44,12 +44,27 @@ addKeyboardStyles();
 
 
 // Calculation function
+function calculateResult(numA, numB, operator) {
+    switch (operator) {
+        case '+':
+            return numA + numB;
+        case '-':
+            return numA - numB;
+        case '*':
+            return numA * numB;
+        case '/':
+            return numA / numB;
+    }
+}
+
 const display = document.querySelector('.display');
 console.log(display.textContent);
+
 
 let numA;
 let numB;
 let numC;
+let operator;
 
 buttons.forEach(btn => {
     btn.addEventListener('click', ()=>{
@@ -71,5 +86,16 @@ buttons.forEach(btn => {
             numA = parseFloat(display.textContent);
         };
 
+        if(btnClass.includes('operation')) {
+            operator = btn.getAttribute('data-key');
+            
+            if(btn.getAttribute('data-key')== "=") {
+                
+            } else {
+                // If operation is [+, -, *, /]
+            }
+        }
+
     });
 });
+
