@@ -60,39 +60,64 @@ function calculateResult(numA, numB, operator) {
 const display = document.querySelector('.display');
 console.log(display.textContent);
 
-
-let numA;
-let numB;
-let numC;
+let numA = 0;
+let numB = 0;
+let numC = 0;
+let dispNum = 0;
 let operator;
 
 buttons.forEach(btn => {
     btn.addEventListener('click', ()=>{
         let btnClass = btn.getAttribute('class');
         if(btnClass.includes('numbers')){
+
+            if(dispNum == 0) {
+                display.textContent = 0;
+            } 
+
             if(display.textContent[0] == '0') {
                 (btn.getAttribute('data-key') == "." && !display.textContent.includes('.')) ? display.textContent += "." :  display.textContent += "";
 
                 btn.getAttribute('data-key') !== "." ? 
                 (display.textContent = "",
                 display.textContent += btn.getAttribute('data-key')): display.textContent += "";
+
+                if(display.textContent == '0.') {
+                    console.log('True');
+                    btn.getAttribute('data-key') !== "." ? 
+                    (display.textContent = "0.",
+                    display.textContent += btn.getAttribute('data-key')): display.textContent += "";
+                }
+                
+            
             } else {
                 (btn.getAttribute('data-key') == "." && !display.textContent.includes('.')) ? display.textContent += "." :  display.textContent += "";
 
                 btn.getAttribute('data-key') !== "." ? 
                 display.textContent += btn.getAttribute('data-key') : display.textContent += "";
             }
-            
-            numA = parseFloat(display.textContent);
+            dispNum = parseFloat(display.textContent);
         };
 
         if(btnClass.includes('operation')) {
-            operator = btn.getAttribute('data-key');
             
             if(btn.getAttribute('data-key')== "=") {
+                if(numA && numB) {
+                    numB = calculateResult(numB, numA, operator);
+                    display.textContent = numB;
+                } 
                 
             } else {
-                // If operation is [+, -, *, /]
+                operator = btn.getAttribute('data-key');
+                if (numA) {
+                    if(!numB) {
+                        numB = numA;
+                        numA = null;
+                    } else {
+                        numB = calculateResult(numB, numA, operator);
+                        display.textContent = numB;
+                    }
+                }
             }
         }
 
