@@ -78,15 +78,16 @@ buttons.forEach(btn => {
                 (btn.getAttribute('data-key') == "." && !display.textContent.includes('.')) ? display.textContent += "." :  display.textContent += "";
 
                 // If user selected numbers
-                btn.getAttribute('data-key') !== "." ? 
-                display.textContent += btn.getAttribute('data-key'): display.textContent += "";
+                if(btn.getAttribute('data-key') !== "."){
+                    display.textContent += btn.getAttribute('data-key')
 
-                if(display.textContent == '0.') {
-                    btn.getAttribute('data-key') !== "." ? 
-                    (display.textContent = "0.",
-                    display.textContent += btn.getAttribute('data-key')): display.textContent += "";
+                    // Need to ensure that there is only one leading zero
+                    display.textContent.slice(0,2) != '0.' ? display.textContent -= '0' : display.textContent += "";
+
                 }
-                
+                // (btn.getAttribute('data-key') !== ".") ? 
+                // display.textContent += btn.getAttribute('data-key'): display.textContent += "";
+               
             
             } else {
                 (btn.getAttribute('data-key') == "." && !display.textContent.includes('.')) ? display.textContent += "." :  display.textContent += "";
