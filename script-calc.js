@@ -60,9 +60,9 @@ function calculateResult(numA, numB, operator) {
 const display = document.querySelector('.display');
 console.log(display.textContent);
 
-let numA = 0;
-let numB = 0;
-let numC = 0;
+let numA
+let numB
+let numC
 let dispNum = 0;
 let operator;
 
@@ -71,19 +71,17 @@ buttons.forEach(btn => {
         let btnClass = btn.getAttribute('class');
         if(btnClass.includes('numbers')){
 
-            if(dispNum == 0) {
-                display.textContent = 0;
-            } 
+            display.textContent = dispNum;
 
             if(display.textContent[0] == '0') {
+                // If user selected the period / dot
                 (btn.getAttribute('data-key') == "." && !display.textContent.includes('.')) ? display.textContent += "." :  display.textContent += "";
 
+                // If user selected numbers
                 btn.getAttribute('data-key') !== "." ? 
-                (display.textContent = "",
-                display.textContent += btn.getAttribute('data-key')): display.textContent += "";
+                display.textContent += btn.getAttribute('data-key'): display.textContent += "";
 
                 if(display.textContent == '0.') {
-                    console.log('True');
                     btn.getAttribute('data-key') !== "." ? 
                     (display.textContent = "0.",
                     display.textContent += btn.getAttribute('data-key')): display.textContent += "";
@@ -96,7 +94,7 @@ buttons.forEach(btn => {
                 btn.getAttribute('data-key') !== "." ? 
                 display.textContent += btn.getAttribute('data-key') : display.textContent += "";
             }
-            dispNum = parseFloat(display.textContent);
+            dispNum = display.textContent;
         };
 
         if(btnClass.includes('operation')) {
@@ -123,4 +121,3 @@ buttons.forEach(btn => {
 
     });
 });
-
