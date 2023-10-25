@@ -44,7 +44,7 @@ addKeyboardStyles();
 
 
 // Calculation function
-function calculateResult(numA, numB, operator) {
+function calculateResult(numB, numA, operator) {
     switch (operator) {
         case '+':
             return numA + numB;
@@ -60,14 +60,19 @@ function calculateResult(numA, numB, operator) {
 const display = document.querySelector('.display');
 console.log(display.textContent);
 
-let numA
-let numB
-let numC
-let dispNum = 0;
+let numA;
+let numB;
+let numC;
 let operator;
+let prevNonEqOp;
+let prevInput;
+let dispNum = 0;
+
 
 buttons.forEach(btn => {
     btn.addEventListener('click', ()=>{
+        
+
         let btnClass = btn.getAttribute('class');
         if(btnClass.includes('numbers')){
 
@@ -83,11 +88,7 @@ buttons.forEach(btn => {
 
                     // Need to ensure that there is only one leading zero
                     display.textContent.slice(0,2) != '0.' ? display.textContent -= '0' : display.textContent += "";
-
-                }
-                // (btn.getAttribute('data-key') !== ".") ? 
-                // display.textContent += btn.getAttribute('data-key'): display.textContent += "";
-               
+                }              
             
             } else {
                 (btn.getAttribute('data-key') == "." && !display.textContent.includes('.')) ? display.textContent += "." :  display.textContent += "";
@@ -95,28 +96,166 @@ buttons.forEach(btn => {
                 btn.getAttribute('data-key') !== "." ? 
                 display.textContent += btn.getAttribute('data-key') : display.textContent += "";
             }
+
             dispNum = display.textContent;
+            prevInput = 'number';
+
+            console.log(`numA: ${numA}`);
+            console.log(`numB: ${numB}`);
+            console.log(`dispNum: ${dispNum}`);
+            console.log(`operator: ${operator}`);
         };
 
         if(btnClass.includes('operation')) {
+            // Convert the text content into a number
+            dispNum = parseFloat(display.textContent);
             
-            if(btn.getAttribute('data-key')== "=") {
-                if(numA && numB) {
-                    numB = calculateResult(numB, numA, operator);
-                    display.textContent = numB;
-                } 
+            // If the operator is equal
+            if(btn.getAttribute('data-key')== "Enter") {
                 
+                if(numA && numB) {
+                    dispNum = calculateResult(numA, numB, operator);
+                    numA = dispNum;
+                    display.textContent = dispNum;
+                    prevInput = '=';
+                    dispNum = 0;
+
+                    console.log(`numA: ${numA}`);
+                    console.log(`numB: ${numB}`);
+                    console.log(`dispNum: ${dispNum}`);
+                    console.log(`operator: ${operator}`);
+
+                    return;
+                }
+
+                if(!numA) {
+                    numA = dispNum;
+                    prevInput = '=';
+
+                    console.log(`numA: ${numA}`);
+                    console.log(`numB: ${numB}`);
+                    console.log(`dispNum: ${dispNum}`);
+                    console.log(`operator: ${operator}`);
+
+                    dispNum = 0;
+
+
+
+                    return;
+                }
+
+                if(!numB) {
+                    numB = numA;
+                    numA = dispNum;
+                    prevInput = '=';
+                    dispNum = calculateResult(numA, numB, operator);
+                    display.textContent = dispNum;
+                    
+
+                    console.log(`numA: ${numA}`);
+                    console.log(`numB: ${numB}`);
+                    console.log(`dispNum: ${dispNum}`);
+                    console.log(`operator: ${operator}`);
+
+                    dispNum = 0;
+                    return;
+                }
+
+            // If the operator is non-equal (i.e., +, -, *, /)
             } else {
                 operator = btn.getAttribute('data-key');
-                if (numA) {
+                if(prevInput === 'number' || !prevInput) {
+                    if(numA && numB) {
+                        dispNum = calculateResult(numA, numB, operator);
+                        numA = dispNum;
+                        prevInput = 'operator';
+
+                        console.log(`numA: ${numA}`);
+                        console.log(`numB: ${numB}`);
+                        console.log(`dispNum: ${dispNum}`);
+                        console.log(`operator: ${operator}`);
+
+                        dispNum = 0;
+                        return;
+                    }
+
+                    if(!numA) {
+                        numA = dispNum;
+                        prevInput = 'operator';
+
+                        console.log(`numA: ${numA}`);
+                        console.log(`numB: ${numB}`);
+                        console.log(`dispNum: ${dispNum}`);
+                        console.log(`operator: ${operator}`);
+
+                        dispNum = 0;
+                        return;
+                    }
+
                     if(!numB) {
-                        numB = numA;
-                        numA = null;
-                    } else {
-                        numB = calculateResult(numB, numA, operator);
-                        display.textContent = numB;
+                        numB = dispNum;
+                        prevInput = 'operator';
+
+                        console.log(`numA: ${numA}`);
+                        console.log(`numB: ${numB}`);
+                        console.log(`dispNum: ${dispNum}`);
+                        console.log(`operator: ${operator}`);
+
+                        dispNum = 0;
+                        return;
+                    }
+
+                } 
+                else if (prevInput === 'operator'){
+                    prevInput = 'operator';
+
+                    console.log(`numA: ${numA}`);
+                    console.log(`numB: ${numB}`);
+                    console.log(`dispNum: ${dispNum}`);
+                    console.log(`operator: ${operator}`);
+
+                } else if (prevInput === '=') {
+                    if(numA && numB) {
+                        
+                        numA = dispNum;
+                        prevInput = 'operator';
+
+                        console.log(`numA: ${numA}`);
+                        console.log(`numB: ${numB}`);
+                        console.log(`dispNum: ${dispNum}`);
+                        console.log(`operator: ${operator}`);
+
+                        dispNum = 0;
+                        return;
+                    }
+
+                    if(!numA) {
+                        numA = dispNum;
+                        prevInput = 'operator';
+
+                        console.log(`numA: ${numA}`);
+                        console.log(`numB: ${numB}`);
+                        console.log(`dispNum: ${dispNum}`);
+                        console.log(`operator: ${operator}`);
+
+                        dispNum = 0;
+                        return;
+                    }
+
+                    if(!numB) {
+                        numB = dispNum;
+                        prevInput = 'operator';
+
+                        console.log(`numA: ${numA}`);
+                        console.log(`numB: ${numB}`);
+                        console.log(`dispNum: ${dispNum}`);
+                        console.log(`operator: ${operator}`);
+
+                        dispNum = 0;
+                        return;
                     }
                 }
+                
             }
         }
 
